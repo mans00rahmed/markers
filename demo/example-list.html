@@ -3,8 +3,17 @@
 <head>
 
    <style>
+      .green{
+         background-color: green !important;
+      }
+      .yellow{
+         background-color: yellow !important;
+      }
       .blue{
          background-color: blue !important;
+      }
+      .red{
+         background-color: red !important;
       }
       p {
          background-color: #eee;
@@ -66,31 +75,56 @@
 <script>
    // initialize video.js
    var player = videojs('test_video');
+   // this dictiory is comming from WIAS python.
+   var pydict = [
+      [
+         {'time': 21, 'text': 'for the <b class="match term0">actually</b> fans of the original'}, 
+         {'time': 3, 'text': 'how that is <b class="match term0">actually</b> see still is mccartney...the movie or yeah i <b class="match term0">actually</b> made a belt of it'},
+      ],
+      [
+         {'time': 15, 'text': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga fugit voluptas inventore eius natus placeat distinctio. Eveniet officia doloribus repellat, architecto eos perferendis cupiditate nam dicta atque accusantium deserunt? Nihil.'},
+         {'time': 25, 'text': 'sit amet consectetur adipisicing elit. Fuga fugit voluptas inventore eius natus placeat distinctio. Eveniet officia doloribus repellat, architecto eos perferendis cupiditate nam dicta atque accusantium deserunt? Nihil.'}
 
-   var markers = [
-         {
-            time: 9.5,
-            text: "Chapter 1",
-            
-         },
-         {
-            time: 16,
-            text: "Chapter 2"
-         },
-         {
-            time: 23.6,
-            text: "Chapter 3"
-         },
-         {
-            time: 28,
-            text: "Chapter 4"
-         },
-         {
-            time: 36,
-            text: "Chapter 5"
-         }
-      ];
+      ],
+      [
+         {'time': 33, 'text': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga fugit voluptas inventore eius natus placeat distinctio. Eveniet officia doloribus repellat, architecto eos perferendis cupiditate nam dicta atque accusantium deserunt? Nihil.'},
+         {'time': 15, 'text': 'Fuga fugit voluptas inventore eius natus placeat distinctio. Eveniet officia doloribus repellat, architecto eos perferendis cupiditate nam dicta atque accusantium deserunt? Nihil.'},
+         {'time': 39, 'text': 'Fuga fugit voluptas inventore eius natus placeat distinctio. Eveniet officia doloribus repellat, architecto eos perferendis cupiditate nam dicta atque accusantium deserunt? Nihil.'}
 
+      ],
+      [
+         {'time': 40, 'text': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga fugit voluptas inventore eius natus placeat distinctio. Eveniet officia doloribus repellat, architecto eos perferendis cupiditate nam dicta atque accusantium deserunt? Nihil.'}
+      ]
+   ]
+
+   // for 1st query
+   var pydict0 = pydict[0];
+   pydict0.forEach(object => {
+      object.class = 'blue';
+   });
+   // for second query
+   var pydict1 = pydict[1];
+   pydict1.forEach(object => {
+      object.class = 'red';
+   });
+   // for third query
+   var pydict2 = pydict[2];
+   pydict2.forEach(object => {
+      object.class = 'green';
+   });
+   // for fourth query
+   var pydict3 = pydict[3];
+   pydict3.forEach(object => {
+      object.class = 'yellow';
+   });
+
+
+   var mark = [];
+   mark.push(pydict0,pydict1,pydict2,pydict3)
+
+   mark = [].concat.apply([], mark);
+
+   var markers = mark;
    //load the marker plugin
    player.markers({
       markerTip:{
@@ -127,7 +161,6 @@
       });
 
    });
-
 
 </script>
 </html>
