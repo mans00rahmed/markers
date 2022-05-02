@@ -56,17 +56,17 @@
    <link href="../dist/videojs.markers.css" rel="stylesheet">
 
 </head>
-<body>
-<h1 class="display-1" style="text-align: center;";">Video and Keywords</h1>
-<div style="display: flex;">
-  <video id="test_video" controls preload="none" class="video-js vjs-default-skin vjs-big-play-centered" width="70%" height="464";
-  ">
+<body style="background-color:black">
+<h1 class="display-1" style="text-align: center; color: white;";">Video and Keywords</h1>
+<br>
+<hr style="background-color: white;">
+<div style="display: flex; background-color: black;">
+  <video id="test_video" controls preload="none" class="video-js vjs-default-skin vjs-big-play-centered" width="70%" height="464"; style="border: 2px solid white; border-radius: 15px;"">
       <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
       <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
   </video>
   <ul id='marker-list' style="margin: auto; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
-   <li><h2 class="display-5" style="text-align: center;">Key<b>Words</b></h2></li>
-
+   <li><h2 class="display-5" style="text-align: center; background-color: black; color: white;">Key<b>Words</b></h2></li>
   </ul>
 </div>
 </body>
@@ -90,17 +90,26 @@
       ],
       [
          {'time': 33, 'text': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga fugit voluptas inventore eius natus placeat distinctio. Eveniet officia doloribus repellat, architecto eos perferendis cupiditate nam dicta atque accusantium deserunt? Nihil.'},
-         {'time': 15, 'text': 'Fuga fugit voluptas inventore eius natus placeat distinctio. Eveniet officia doloribus repellat, architecto eos perferendis cupiditate nam dicta atque accusantium deserunt? Nihil.'},
          {'time': 39, 'text': 'Fuga fugit voluptas inventore eius natus placeat distinctio. Eveniet officia doloribus repellat, architecto eos perferendis cupiditate nam dicta atque accusantium deserunt? Nihil.'}
       ],
       [
          {'time': 40, 'text': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga fugit voluptas inventore eius natus placeat distinctio. Eveniet officia doloribus repellat, architecto eos perferendis cupiditate nam dicta atque accusantium deserunt? Nihil.'}
-      ],
-      [
-         {'time': 10, 'text': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga fugit voluptas inventore eius natus placeat distinctio. Eveniet officia doloribus repellat, architecto eos perferendis cupiditate nam dicta atque accusantium deserunt? Nihil.'}
-      ]
+         ],
    ]
 
+   var mark = [];
+
+// this is done statically beacuse we can search maximun 4 elements one time
+
+   if (pydict.length ==1) {
+       // for 1st query
+      var pydict0 = pydict[0];
+      pydict0.forEach(object => {
+      object.class = 'blue';
+   });
+   mark.push(pydict0)
+   }
+   else if (pydict.length ==2) {
    // for 1st query
    var pydict0 = pydict[0];
    pydict0.forEach(object => {
@@ -110,21 +119,53 @@
    var pydict1 = pydict[1];
    pydict1.forEach(object => {
       object.class = 'red';
+   });      
+   mark.push(pydict0,pydict1)
+   }
+   else if (pydict.length == 3) {
+   // for 1st query
+   var pydict0 = pydict[0];
+   pydict0.forEach(object => {
+      object.class = 'blue';
    });
+   // for second query
+   var pydict1 = pydict[1];
+   pydict1.forEach(object => {
+      object.class = 'red';
+   });   
+      // for third query
+      var pydict2 = pydict[2];
+      pydict2.forEach(object => {
+      object.class = 'green';
+   });
+   mark.push(pydict0,pydict1,pydict2)
+
+   }
+else{
+   // for 1st query
+   var pydict0 = pydict[0];
+   pydict0.forEach(object => {
+      object.class = 'blue';
+   });
+   // for second query
+   var pydict1 = pydict[1];
+   pydict1.forEach(object => {
+      object.class = 'red';
+   });   
    // for third query
    var pydict2 = pydict[2];
    pydict2.forEach(object => {
-      object.class = 'green';
+   object.class = 'green';
    });
    // for fourth query
    var pydict3 = pydict[3];
    pydict3.forEach(object => {
-      object.class = 'yellow';
+   object.class = 'yellow';
    });
-
-
-   var mark = [];
    mark.push(pydict0,pydict1,pydict2,pydict3)
+   }
+
+// end of if wlse statement
 
    mark = [].concat.apply([], mark);
 
@@ -156,8 +197,10 @@
    $(document).ready(function(){
       // insert marker list
       for(var i =0; i < markers.length; i++){
-         var item = $("<li data-index='"+i+"'><a href='#'>"+markers[i].text+"</a></li>");
-         $("#marker-list").append(item);
+         var item = $("<li data-index='"+i+"'><a href='#'>"+markers[i].text+"</a></li>")
+         $(item).css("border-color",""+markers[i].class+"");
+         $(item).css({"backgroundColor" : "black"});
+         $("#marker-list").append(item)
       }
 
       // set up click event
